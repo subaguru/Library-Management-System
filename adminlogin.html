@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>admin login</title>
+    <style>
+            body{
+              background-image: url("https://cdn.wallpapersafari.com/73/37/XREwJy.jpg");
+              background-size: cover;
+              background-attachment: fixed;
+              background-repeat:no-repeat;
+            }
+            h1{
+              margin-top:125px;
+              font-size:50px;
+              text-align:center;
+              color:#F2E4CF;
+            }
+            .container{
+              background-color:#FFCBA4;
+              padding-top:80px;
+              margin:50px auto;
+              /*border: 1px solid;*/
+              width:600px;
+              height:400px;
+              text-align: center;
+              border-radius:25px;
+             
+
+            }
+            .btn1{
+              padding:10px;
+              width:150px;
+              margin:10px;
+              font-size:30px;
+              background-color:#A96036;
+              color:#FEFEFE;
+              font-weight:bold;
+              border-radius:15px;
+              border:2px solid #050A30;
+            }
+            .btn1:focus{
+              outline:0;
+            }
+            .btn1:active{
+              transform:scale(0.8);
+            }
+
+            input{
+              width:400px;
+              background-color: transparent;
+              border:none;
+              outline:none;
+              border-bottom: 2px solid gray;
+              color:#09015f;
+              font-size:20px;
+              margin-bottom: 25px;
+            } 
+            input{
+              margin-top:30px;
+              height: 45px;
+            }
+            input:focus{
+              font-size:22px;
+            }
+            .wrapper{
+              margin-top:25px;
+            }
+            .btn:focus{
+              outline:0;
+
+            }
+            .btn:active{
+              transform:scale(0.6);
+            }
+            span{
+              color:#821D30;
+              font-size:25px;
+              
+            }
+    </style>
+  </head>
+  <body>
+      <h1>Admin Login Form</h1>
+           <section class="container"> 
+                  <input id="mailid" type="text" placeholder="Enter the MailId">
+                  <input id="password" type="password" placeholder="Enter the Password">
+                  <div class="wrapper">
+                    <a href="frontpage.html"><button class="btn1">Cancel</button></a>
+                    <button class="btn1" onclick="Adminloginform()">Submit</button>
+                  </div>
+                  <span id="mylocation"></span>
+           </section> 
+    <script>
+      let demo;
+      let Adminloginform=function(){
+      
+        var mailid=document.getElementById("mailid").value;
+        var password=document.getElementById("password").value;
+       
+              
+              var url="./AdminLogin?mailid="+mailid+"&password="+password;
+              
+              let xmlhttp = new XMLHttpRequest();
+              console.log(url);
+              //Defines a function to be called when the readyState property changes
+              xmlhttp.onreadystatechange=function(){
+
+                //ready State Holds the status of the XMLHttpRequest.Returns the status-number of a request
+                if(this.readyState==4 && this.status==200){
+                console.log("i am call");
+                //Returns the response data as a string
+                demo=this.responseText;
+
+                document.getElementById("mylocation").innerText=demo;
+                console.log(demo);
+                if(demo.slice(0,-1)=="success"){
+                    
+                    window.location.href="adminsuccess.html";            
+                }
+                  
+              }
+            }
+        
+        xmlhttp.open("POST","./AdminLogin?mailid="+mailid+"&password="+password,true);
+        //Sends the request to the server Used for GET requests
+
+        xmlhttp.send();
+    } 
+    </script>
+  </body>
+</html>

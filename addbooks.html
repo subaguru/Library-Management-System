@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width">
+          <title>repl.it</title>
+          <style>
+       body{
+        background-image: url("https://cdn.wallpapersafari.com/73/37/XREwJy.jpg");
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat:no-repeat;
+      }   
+
+      h1{
+        font-size:50px;
+        text-align:center;
+        color:#F2E4CF;
+        margin-top:100px;
+      }
+      .container{
+        background-color:#FFCBA4;
+        padding-top:40px;
+        margin:50px auto;
+        /*border: 1px solid;*/
+        width:600px;
+        height:500px;
+        text-align: center;
+        border-radius:25px;
+
+      }
+      .btn1{
+        padding:10px;
+        width:150px;
+        margin:10px;
+        font-size:30px;
+        background-color:#A96036;
+        color:#FEFEFE;
+        font-weight:bold;
+        border-radius:15px;
+        border:2px solid #050A30;
+      }
+      .btn1:focus{
+        outline:0;
+      }
+      .btn1:active{
+        transform:scale(0.8);
+      }
+
+      input{
+        width:400px;
+        background-color: transparent;
+        border:none;
+        outline:none;
+        border-bottom: 2px solid gray;
+        color:#09015f;
+        font-size:18px;
+        margin-bottom: 15px;
+      } 
+      input{
+        margin-top:15px;
+        height: 45px;
+      }
+      input:focus{
+        font-size:20px;
+      }
+      .wrapper{
+        margin-top:25px;
+      }
+      .btn:focus{
+        outline:0;
+
+      }
+      .btn:active{
+        transform:scale(0.6);
+      }
+      span{
+         color:#821D30;
+         font-size:25px;
+      }
+
+    </style>
+  </head>
+  <body>
+   <h1>Add Books</h1>
+   <section class="container"> 
+    <input type="text" id="lid"placeholder="Enter the librarian id">
+    <input type="text" id="no" placeholder="Enter the BookNo">
+    <input type="text" id="name" placeholder="Enter the Bookname">
+    <input type="text" id="author"placeholder="Enter the author">
+    <div class="wrapper">
+      <a href="librariansection.html"><button class="btn1">cancel</button></a>
+      <button class="btn1" onclick="AddBooksForm()">submit</button>
+    </div>
+    <span id="mylocation"></span>
+   </section>
+   <script>
+      let demo;
+      let AddBooksForm=function(){
+        //getting the inputs
+        var lid=document.getElementById("lid").value;
+        var no=document.getElementById("no").value;
+        var name=document.getElementById("name").value;
+        var author=document.getElementById("author").value;
+        //checking the inputs not null
+        var url="./AddBooks?"
+        if(lid!=""){
+          url+="lid="+lid;
+        }
+        if(no!=""){
+
+                if(url.includes("lid")){
+                  url+="&";
+                  
+                }
+                url+="no="+no;
+        }
+        if(name!=""){
+
+                if(url.includes("no")){
+                  url+="&";
+                  
+                }
+                url+="name="+name;
+        }
+        if(author!=""){
+
+                if(url.includes("name")){
+                  url+="&";
+                  
+                }
+                url+="author="+author;
+        }
+              
+              let xmlhttp = new XMLHttpRequest();
+              console.log(url);
+               //Defines a function to be called when the readyState property changes
+              xmlhttp.onreadystatechange=function(){
+                console.log("I am call");
+                console.log(this.status);
+                //ready State Holds the status of the XMLHttpRequest.Returns the status-number of a request
+                if(this.readyState==4 && this.status==200){
+                        demo=this.responseText;
+                        //Returns the response data as a string
+                        console.log(demo);
+                        document.getElementById("mylocation").innerText=demo;
+
+                                if(demo.slice(0,-1)=="success"){
+                                    window.location.href="addbookssuccess.html";            
+                                }
+                  
+                }
+            }
+        
+                xmlhttp.open("POST",url,true);
+                //Sends the request to the server Used for GET requests
+                xmlhttp.send();
+    } 
+    </script>
+ </body>
+ </html>
